@@ -4,3 +4,4 @@ This system uses:
 * devise for authentication
 * twitter bootstrap
 * stripe to proccess payments
+* sendgrid to send emails to confirm the users' email
