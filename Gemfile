@@ -26,6 +26,8 @@ gem 'devise'
 gem 'twitter-bootstrap-rails'
 # Bootstrap for devise
 gem 'devise-bootstrap-views'
+# API to accept payments over the internet
+gem 'stripe'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
