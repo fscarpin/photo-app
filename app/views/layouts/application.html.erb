@@ -36,23 +36,17 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script>
     <![endif]-->
   </head>
-  <body>
 
+  <body>
     <%= render "layouts/navbar_top" %>
 
     <div class="container">
-      <div class="row">
-        <div class="col-lg-9">
-          <%= bootstrap_flash %>
-          <%= yield %>
-        </div>
-      </div><!--/row-->
-
-      <footer>
+      <%= bootstrap_flash %>
+      <%= yield %>
+      <footer class="fotter-margin">
         <p>&copy; Company 2016</p>
       </footer>
-
     </div> <!-- /container -->
-
   </body>
+
 </html>
