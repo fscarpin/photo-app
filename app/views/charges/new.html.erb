@@ -1,0 +1,20 @@
+<%= form_tag charges_path do %>
+  <article>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+    <h3 class="medium-padding-bottom"> Before using our app, please pay your lifetime subscription. </h3>
+    <div class="well well-lg">
+      <p> You only need to pay once to enjoy Amazing Photo App forever.
+      <p> <strong> Amount: $150.00 </strong> </p>
+    </p>
+  </article>
+
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="A month's subscription"
+          data-amount="15000"
+          data-locale="auto"></script>
+<% end %>
