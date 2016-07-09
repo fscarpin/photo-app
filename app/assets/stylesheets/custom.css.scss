@@ -1,10 +1,32 @@
-.no-list-style {
-  list-style-type: none;
-  padding-left: 0px;
+.jumbotron {
+  background-image:     asset-url('moraine_lake.jpg');
+  background-size:      cover;
+  background-repeat:    no-repeat;
+  background-position:  center center;
+  background-color:     #fff;
+  text-shadow:          2px 2px 4px #000000;
+  color:                #fff;
 }
 
-.fotter-margin {
-  margin-top: 30px;
-  border-top: 1px solid gray;
-  padding-top: 10px;
+.jumbotron h1 {
+  font-size:    3em;
+  padding:      50px;
+  text-align:   center;
+}
+
+.no-list-style {
+  list-style-type:  none;
+  padding-left:     0px;
+}
+
+.medium-padding-bottom {
+  padding-bottom:   20px;
+}
+
+.fotter {
+  margin-top:     30px;
+  margin-bottom:  30px;
+  padding:        10px;
+  border-top:     1px solid #e6e6e6;
+  color:          #347ab7;
 }
