@@ -23,12 +23,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'stripe'
 # Authentication gem
 gem 'devise'
+# File upload gem
+gem 'carrierwave'
+# Resizes file images
+gem "mini_magick"
+gem 'fog'
 # Bootstrap
 gem 'twitter-bootstrap-rails'
 # Bootstrap for devise
 gem 'devise-bootstrap-views'
-# API to accept payments over the internet
-gem 'stripe'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

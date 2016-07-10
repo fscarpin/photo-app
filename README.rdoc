@@ -1,7 +1,9 @@
-Photo App that allows users to upload images to save their images.
+Photo App that allows users to upload images to save their images in the cloud.
 
 This system uses:
 * devise for authentication
 * twitter bootstrap
 * stripe to proccess payments
-* sendgrid to send emails to confirm the users' email
+* sendgrid to send emails to confirm the user's email
+* carrierwave to upload files
+* mini_magick to resize the images before uploading
