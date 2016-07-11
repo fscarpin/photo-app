@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     if current_user.payment == false
       new_charge_path
     else
-      edit_user_registration_path
+      images_path
     end
   end
 end

@@ -27,6 +27,7 @@ gem 'devise'
 gem 'carrierwave'
 # Resizes file images
 gem "mini_magick"
+# Ruby cloud services
 gem 'fog'
 # Bootstrap
 gem 'twitter-bootstrap-rails'
