@@ -19,9 +19,11 @@
 
   <div class="form-group medium-padding-top">
     <div class="col-lg-10">
-      <%= f.submit "Upload Image", :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")), images_path, :class => 'btn btn-default' %>
+      <%= f.submit "Upload Image", :class => 'btn btn-primary', id: "image-btn-upload" %>
+      <%= link_to "Cancel", images_path, :class => 'btn btn-default', id: "image-cancel-btn" %>
     </div>
   </div>
 
 <% end %>
+
+

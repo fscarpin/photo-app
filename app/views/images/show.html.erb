@@ -1,6 +1,7 @@
 <%- model_class = Image -%>
 <div class="page-header">
-  <h1>Image: <%= @image.picture.file.file.split("/").last %></h1>
+  <h1> Image: <%= @image.picture.file.file.split("/").last %> </h1>
+  <p> Created at <%= @image.created_at.strftime("%c") %> </p>
 </div>
 
 <p>
@@ -8,9 +9,8 @@
 </p>
 
 <%= link_to t('.back', :default => t("helpers.links.back")), images_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")), edit_image_path(@image), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               image_path(@image),
               :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :data => { :confirm => 'Are you sure you want to delete this image?' },
               :class => 'btn btn-danger' %>

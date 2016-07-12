@@ -6,7 +6,12 @@
       <span class="icon-bar"></span>
     </button>
 
-    <%= link_to "PhotoApp", root_path, class: "navbar-brand" %>
+    <% if user_signed_in? %>
+      <%= link_to "PhotoApp", "#", class: "navbar-brand" %>
+    <% else %>
+      <%= link_to "PhotoApp", root_path, class: "navbar-brand" %>
+    <% end %>
+
 
     <div class="navbar-collapse collapse navbar-responsive-collapse">
       <% if user_signed_in? %>

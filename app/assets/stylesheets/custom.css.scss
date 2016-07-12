@@ -1,3 +1,7 @@
+h1, h2, h3, h4, h5, h6 {
+  color:  #347ab7;
+}
+
 .jumbotron {
   background-image:     asset-url('moraine_lake.jpg');
   background-size:      cover;
@@ -12,6 +16,15 @@
   font-size:    3em;
   padding:      50px;
   text-align:   center;
+}
+
+.jumbotron h1,
+.jumbotron h2,
+.jumbotron h3,
+.jumbotron h4,
+.jumbotron h5,
+.jumbotron h6  {
+  color:  #fff
 }
 
 .no-list-style {
