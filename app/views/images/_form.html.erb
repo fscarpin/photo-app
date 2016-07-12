@@ -15,19 +15,12 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :picture, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.file_field :picture, accept: "image/jpeg,image/gif,image/png" %>
-    </div>
-    <%=f.error_span(:picture) %>
-  </div>
+  <%= f.file_field :picture, accept: "image/jpeg,image/gif,image/png" %>
 
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
+  <div class="form-group medium-padding-top">
+    <div class="col-lg-10">
       <%= f.submit "Upload Image", :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                images_path, :class => 'btn btn-default' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")), images_path, :class => 'btn btn-default' %>
     </div>
   </div>
 

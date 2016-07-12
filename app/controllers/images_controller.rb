@@ -5,16 +5,12 @@ class ImagesController < ApplicationController
   # GET /images.json
   def index
     @images = Image.where(user: current_user)
+    @image = Image.new
   end
 
   # GET /images/1
   # GET /images/1.json
   def show
-  end
-
-  # GET /images/new
-  def new
-    @image = Image.new
   end
 
   # GET /images/1/edit
@@ -32,7 +28,8 @@ class ImagesController < ApplicationController
         format.html { redirect_to @image, notice: 'Image was successfully created.' }
         format.json { render :show, status: :created, location: @image }
       else
-        format.html { render :new }
+        @images = Image.where(user: current_user)
+        format.html { render :index }
         format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end

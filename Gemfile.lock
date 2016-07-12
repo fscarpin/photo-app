@@ -41,6 +41,7 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap_form (2.3.0)
     builder (3.2.2)
     byebug (9.0.5)
     carrierwave (0.11.2)
@@ -336,6 +337,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap_form
   byebug
   carrierwave
   coffee-rails (~> 4.1.0)

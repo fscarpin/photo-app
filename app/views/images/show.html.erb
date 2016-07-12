@@ -3,10 +3,9 @@
   <h1>Image: <%= @image.picture.file.file.split("/").last %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:picture) %>:</strong></dt>
-  <dd><%= image_tag @image.picture %></dd>
-</dl>
+<p>
+<%= image_tag @image.picture, class: "image-max-size" %>
+</p>
 
 <%= link_to t('.back', :default => t("helpers.links.back")), images_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_image_path(@image), :class => 'btn btn-default' %>

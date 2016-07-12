@@ -33,6 +33,8 @@ gem 'fog'
 gem 'twitter-bootstrap-rails'
 # Bootstrap for devise
 gem 'devise-bootstrap-views'
+# Rails Bootstrap Forms is a rails form builder that makes it super easy to integrate twitter bootstrap-style forms into your rails application.
+gem 'bootstrap_form'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
