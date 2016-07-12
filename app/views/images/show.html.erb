@@ -1,15 +1,11 @@
 <%- model_class = Image -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1>Image: <%= @image.picture.file.file.split("/").last %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @image.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:picture) %>:</strong></dt>
   <dd><%= image_tag @image.picture %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
-  <dd><%= @image.user_id %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")), images_path, :class => 'btn btn-default'  %>

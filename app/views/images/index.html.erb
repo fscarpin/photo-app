@@ -1,14 +1,12 @@
 <%- model_class = Image -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1>My Images</h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:file_name) %></th>
       <th><%= model_class.human_attribute_name(:picture) %></th>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -16,10 +14,12 @@
   <tbody>
     <% @images.each do |image| %>
       <tr>
-        <td><%= link_to image.id, image_path(image) %></td>
-        <td><%= image.name %></td>
-        <td><%= image_tag image.picture, size: "50x50" %></td>
-        <td><%= image.user_id %></td>
+        <td><%= link_to image.picture.file.file.split("/").last, image_path(image) %></td>
+        <td>
+          <%= link_to image_path(image) do%>
+            <%= image_tag image.picture.versions[:thumb].url %>
+          <% end %>
+        </td>
         <td><%=l image.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_image_path(image), :class => 'btn btn-default btn-xs' %>
