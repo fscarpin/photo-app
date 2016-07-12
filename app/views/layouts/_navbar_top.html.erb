@@ -9,11 +9,11 @@
     <%= link_to "PhotoApp", root_path, class: "navbar-brand" %>
 
     <div class="navbar-collapse collapse navbar-responsive-collapse">
-      <ul class="nav navbar-nav">
-        <li><%= link_to "Link1", "/path1"  %></li>
-        <li><%= link_to "Link2", "/path2"  %></li>
-        <li><%= link_to "Link3", "/path3"  %></li>
-      </ul>
+      <% if user_signed_in? %>
+        <ul class="nav navbar-nav">
+          <li><%= link_to "My Images", images_path  %></li>
+        </ul>
+      <% end %>
 
       <ul class="nav navbar-nav navbar-right">
         <!-- Toogle the login and logout button (if the user is logged in or not) -->
