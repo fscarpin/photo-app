@@ -57,3 +57,11 @@ h1, h2, h3, h4, h5, h6 {
   border-top:     1px solid #e6e6e6;
   margin-top:     30px;
 }
+
+input[type=checkbox] {
+  /* All browsers except webkit*/
+  transform: scale(1.5);
+
+  /* Webkit browsers*/
+  -webkit-transform: scale(1.5);
+}

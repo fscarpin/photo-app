@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  resources :images, except: [:new, :edit, :update]
+  resources :images, except: [:new, :edit, :update] do
+    collection do
+      delete "destroy_multiples"
+    end
+  end
+
+
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -45,6 +45,16 @@ class ImagesController < ApplicationController
     end
   end
 
+  def destroy_multiples
+    image_ids = params[:image_ids]
+    image_ids.each do |id|
+      Image.find(id).destroy
+    end
+
+    flash[:notice] = "Images have been deleted"
+    redirect_to images_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_image
@@ -53,6 +63,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:picture, :user_id)
+      params.require(:image).permit(:picture, :image_ids[], :user_id)
     end
 end
