@@ -20,6 +20,7 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
+    binding.pry
     @image = Image.new(image_params)
     @image.user = current_user
 
@@ -63,6 +64,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:picture, :image_ids[], :user_id)
+      params.require(:image).permit(:picture, :user_id)
     end
 end
