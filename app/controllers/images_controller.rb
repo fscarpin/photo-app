@@ -5,7 +5,9 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.json
   def index
-    @images = Image.where(user: current_user)
+    @images_uploaded = Image.where(user: current_user)
+
+    @new_images = []
     @image = Image.new
   end
 
@@ -21,19 +23,31 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
-    @image = Image.new(image_params)
-    @image.user = current_user
+    pictures = []
+    if !params[:image][:picture].kind_of? Array
+      pictures << params[:image][:picture]
+    else
+      pictures = params[:image][:picture]
+    end
 
-    respond_to do |format|
-      if @image.save
-        format.html { redirect_to @image, notice: 'Image was uploaded successfully.' }
-        format.json { render :show, status: :created, location: @image }
-      else
-        @images = Image.where(user: current_user)
-        format.html { render :index }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
+    errors_hash = {}
+    pictures.each do |picture|
+      @image = Image.new(picture: picture, user_id: current_user.id)
+      if !@image.save
+        errors_hash[picture.original_filename] = @image.errors.full_messages.first
       end
     end
+
+    if errors_hash.empty?
+      flash[:notice] = "Uploaded Successfully"
+    else
+      error_msg = ""
+      errors_hash.each do |file, error|
+        flash[:error] = "#{file}: #{error}"
+      end
+    end
+
+    redirect_to images_path
   end
 
   # DELETE /images/1
