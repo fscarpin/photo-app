@@ -1,4 +1,5 @@
 class ImagesController < ApplicationController
+  before_action :validate_payment
   before_action :set_image, only: [:show, :edit, :update, :destroy]
 
   # GET /images
@@ -20,7 +21,6 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
-    binding.pry
     @image = Image.new(image_params)
     @image.user = current_user
 
@@ -48,6 +48,12 @@ class ImagesController < ApplicationController
 
   def destroy_multiples
     image_ids = params[:image_ids]
+
+    if !image_ids
+      redirect_to images_path
+      return
+    end
+
     image_ids.each do |id|
       Image.find(id).destroy
     end
@@ -65,5 +71,11 @@ class ImagesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
       params.require(:image).permit(:picture, :user_id)
+    end
+
+    def validate_payment
+      if user_signed_in? && current_user.payment == false
+        redirect_to new_charge_path
+      end
     end
 end

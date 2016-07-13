@@ -58,10 +58,15 @@ h1, h2, h3, h4, h5, h6 {
   margin-top:     30px;
 }
 
-input[type=checkbox] {
-  /* All browsers except webkit*/
-  transform: scale(1.5);
+// input[type="checkbox"]{
+//   width: 30px; Desired width
+//   height: 30px; /*Desired height*/
+// }
 
-  /* Webkit browsers*/
-  -webkit-transform: scale(1.5);
-}
+// input[type=checkbox] {
+//   /* All browsers except webkit*/
+//   transform: scale(1.5);
+
+//   /* Webkit browsers*/
+//   // -webkit-transform: scale(1.5);
+// }
