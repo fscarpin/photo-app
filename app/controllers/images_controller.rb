@@ -5,9 +5,7 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.json
   def index
-    @images_uploaded = Image.where(user: current_user)
-
-    @new_images = []
+    @images_uploaded = Image.where(user: current_user).order("created_at DESC")
     @image = Image.new
   end
 
@@ -23,31 +21,24 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
-    pictures = []
-    if !params[:image][:picture].kind_of? Array
-      pictures << params[:image][:picture]
-    else
-      pictures = params[:image][:picture]
-    end
+    pictures = params[:image][:pictures]
 
-    errors_hash = {}
+    @errors_hash = Hash.new
     pictures.each do |picture|
       @image = Image.new(picture: picture, user_id: current_user.id)
       if !@image.save
-        errors_hash[picture.original_filename] = @image.errors.full_messages.first
+        @errors_hash[picture.original_filename] = @image.errors.full_messages.first
       end
     end
 
-    if errors_hash.empty?
+    if @errors_hash.empty?
       flash[:notice] = "Uploaded Successfully"
+      redirect_to images_path
     else
-      error_msg = ""
-      errors_hash.each do |file, error|
-        flash[:error] = "#{file}: #{error}"
-      end
+      @images_uploaded = Image.where(user: current_user).order("created_at DESC")
+      @image = Image.new
+      render :index
     end
-
-    redirect_to images_path
   end
 
   # DELETE /images/1
@@ -74,6 +65,20 @@ class ImagesController < ApplicationController
 
     flash[:notice] = "Images have been deleted"
     redirect_to images_path
+  end
+
+  def order_by
+    case params[:order]
+    when Image::ORDER_BY_CREATED_AT
+      @images_uploaded = Image.where(user: current_user).order(Image::ORDER_BY_CREATED_AT)
+    when Image::ORDER_BY_FILE_NAME
+      @images_uploaded = Image.where(user: current_user).sort_by{ |image| image.file_name.downcase}
+    else
+      @images_uploaded = Image.where(user: current_user).order("#{Image::ORDER_BY_CREATED_AT} DESC")
+    end
+
+    @image = Image.new
+    render :index
   end
 
   private

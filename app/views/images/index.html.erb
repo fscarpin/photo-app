@@ -1,14 +1,14 @@
 <%- model_class = Image -%>
-<h2>Upload an image </h2>
-<%= render "images/form" %>
+<h2>Image Upload</h2>
+<%= render "images/upload_form" %>
 
 <%= form_tag destroy_multiples_images_path, method: :delete do %>
   <table class="table table-striped border-top">
     <thead>
       <tr>
-        <th><%= model_class.human_attribute_name(:picture) %></th>
-        <th><%= model_class.human_attribute_name(:file_name) %></th>
-        <th><%= model_class.human_attribute_name(:created_at) %></th>
+        <th> Picture </th>
+        <th> <%= link_to "File name", method: :get, controller: "images", action: "order_by", order: Image::ORDER_BY_FILE_NAME  %> </th>
+        <th> <%= link_to "Created at", method: :get, controller: "images", action: "order_by", order: Image::ORDER_BY_CREATED_AT %> </th>
         <th class="text-center">Selection</th>
       </tr>
     </thead>
@@ -21,8 +21,8 @@
               <%= image_tag image.picture.versions[:thumb].url %>
             <% end %>
           </td>
-          <td><%= link_to image.picture.file.file.split("/").last, image_path(image) %></td>
-          <td><%=image.created_at.strftime("%c") %></td>
+          <td><%= link_to image.file_name, image_path(image) %></td>
+          <td><%= image.created_at.strftime("%c") %></td>
           <td>
             <div class="text-center">
               <%= check_box_tag "image_ids[]", image.id %>
