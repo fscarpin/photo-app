@@ -11,8 +11,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'images_order/:order' => 'images#order_by'
-
   devise_for :users
 
   # Example of regular route:

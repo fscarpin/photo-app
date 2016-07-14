@@ -1,11 +1,13 @@
 class ImagesController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   before_action :validate_payment
   before_action :set_image, only: [:show, :edit, :update, :destroy]
 
   # GET /images
   # GET /images.json
   def index
-    @images_uploaded = Image.where(user: current_user).order("created_at DESC")
+    @images_uploaded = Image.where(user: current_user).order("LOWER(#{sort_column})" + " " + sort_direction)
     @image = Image.new
   end
 
@@ -25,7 +27,8 @@ class ImagesController < ApplicationController
 
     @errors_hash = Hash.new
     pictures.each do |picture|
-      @image = Image.new(picture: picture, user_id: current_user.id)
+      file_name = picture.file.filename
+      @image = Image.new(picture: picture, file_name: file_name, user_id: current_user.id)
       if !@image.save
         @errors_hash[picture.original_filename] = @image.errors.full_messages.first
       end
@@ -67,19 +70,19 @@ class ImagesController < ApplicationController
     redirect_to images_path
   end
 
-  def order_by
-    case params[:order]
-    when Image::ORDER_BY_CREATED_AT
-      @images_uploaded = Image.where(user: current_user).order(Image::ORDER_BY_CREATED_AT)
-    when Image::ORDER_BY_FILE_NAME
-      @images_uploaded = Image.where(user: current_user).sort_by{ |image| image.file_name.downcase}
-    else
-      @images_uploaded = Image.where(user: current_user).order("#{Image::ORDER_BY_CREATED_AT} DESC")
-    end
+  # def order_by
+  #   case params[:order]
+  #   when Image::ORDER_BY_CREATED_AT
+  #     @images_uploaded = Image.where(user: current_user).order(Image::ORDER_BY_CREATED_AT)
+  #   when Image::ORDER_BY_FILE_NAME
+  #     @images_uploaded = Image.where(user: current_user).sort_by{ |image| image.file_name.downcase}
+  #   else
+  #     @images_uploaded = Image.where(user: current_user).order("#{Image::ORDER_BY_CREATED_AT} DESC")
+  #   end
 
-    @image = Image.new
-    render :index
-  end
+  #   @image = Image.new
+  #   render :index
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -96,5 +99,13 @@ class ImagesController < ApplicationController
       if user_signed_in? && current_user.payment == false
         redirect_to new_charge_path
       end
+    end
+
+    def sort_column
+      Image.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
 end

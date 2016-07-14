@@ -1,12 +1,9 @@
 class Image < ActiveRecord::Base
-
-  ORDER_BY_FILE_NAME = "picture"
-  ORDER_BY_CREATED_AT = "created_at"
-
   belongs_to :user
   mount_uploader :picture, PictureUploader
 
   validates :picture, presence: true
+  validates :file_name, presence: true
   validate :picture_max_size
 
   def file_name

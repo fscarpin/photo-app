@@ -7,8 +7,8 @@
     <thead>
       <tr>
         <th> Picture </th>
-        <th> <%= link_to "File name", method: :get, controller: "images", action: "order_by", order: Image::ORDER_BY_FILE_NAME  %> </th>
-        <th> <%= link_to "Created at", method: :get, controller: "images", action: "order_by", order: Image::ORDER_BY_CREATED_AT %> </th>
+        <th> <%= sortable "file_name", "File name" %> </th>
+        <th> <%= sortable "created_at", "Created at" %> </th>
         <th class="text-center">Selection</th>
       </tr>
     </thead>
