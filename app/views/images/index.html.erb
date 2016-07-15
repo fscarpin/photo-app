@@ -1,6 +1,15 @@
 <%- model_class = Image -%>
-<h2>Image Upload</h2>
-<%= render "images/upload_form" %>
+
+<div class="row col-md-6">
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Image Upload</h3>
+  </div>
+  <div class="panel-body">
+    <%= render "images/upload_form" %>
+  </div>
+</div>
+</div>
 
 <%= form_tag destroy_multiples_images_path, method: :delete do %>
   <table class="table table-striped border-top">
@@ -32,6 +41,8 @@
       <% end %>
     </tbody>
   </table>
-  <%= submit_tag "Delete Selected Images", class: "btn btn-danger" %>
+  <%= button_tag class: "btn btn-danger" do %>
+    <i class="fa fa-trash-o"></i> Delete selected images
+  <% end %>
 <% end %>
 

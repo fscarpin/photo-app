@@ -5,29 +5,22 @@ class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :edit, :update, :destroy]
 
   # GET /images
-  # GET /images.json
   def index
     @images_uploaded = Image.where(user: current_user).order("LOWER(#{sort_column})" + " " + sort_direction)
     @image = Image.new
   end
 
   # GET /images/1
-  # GET /images/1.json
   def show
   end
 
-  # GET /images/1/edit
-  def edit
-  end
-
   # POST /images
-  # POST /images.json
   def create
     pictures = params[:image][:pictures]
 
     @errors_hash = Hash.new
     pictures.each do |picture|
-      file_name = picture.file.filename
+      file_name = picture.original_filename
       @image = Image.new(picture: picture, file_name: file_name, user_id: current_user.id)
       if !@image.save
         @errors_hash[picture.original_filename] = @image.errors.full_messages.first
@@ -69,20 +62,6 @@ class ImagesController < ApplicationController
     flash[:notice] = "Images have been deleted"
     redirect_to images_path
   end
-
-  # def order_by
-  #   case params[:order]
-  #   when Image::ORDER_BY_CREATED_AT
-  #     @images_uploaded = Image.where(user: current_user).order(Image::ORDER_BY_CREATED_AT)
-  #   when Image::ORDER_BY_FILE_NAME
-  #     @images_uploaded = Image.where(user: current_user).sort_by{ |image| image.file_name.downcase}
-  #   else
-  #     @images_uploaded = Image.where(user: current_user).order("#{Image::ORDER_BY_CREATED_AT} DESC")
-  #   end
-
-  #   @image = Image.new
-  #   render :index
-  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

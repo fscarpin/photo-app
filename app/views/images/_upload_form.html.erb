@@ -1,4 +1,4 @@
-<%= form_for @image, :html => { multipart: true, :class => "form-horizontal image" } do |f| %>
+<%= form_for @image, html: {multipart: true, class: "form-horizontal image"} do |f| %>
 
   <% if @errors_hash  %>
     <div id="error_expl" class="panel panel-danger">
@@ -19,10 +19,15 @@
 
   <div class="form-group medium-padding-top">
     <div class="col-lg-10">
-      <%= f.submit "Upload Image", :class => 'btn btn-primary', id: "image-btn-upload" %>
-      <%= link_to "Cancel", images_path, :class => 'btn btn-default', id: "image-cancel-btn" %>
+      <%= f.button class: "btn btn-primary", id: "image-btn-upload" do %>
+        <i class="fa fa-upload"></i> Upload Image
+      <% end %>
+      <%= link_to "Cancel", images_path, class: "btn btn-default", id: "image-cancel-btn" %>
     </div>
   </div>
+
+
+
 
 <% end %>
 
