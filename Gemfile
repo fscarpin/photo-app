@@ -35,6 +35,9 @@ gem 'twitter-bootstrap-rails'
 gem 'devise-bootstrap-views'
 # Rails Bootstrap Forms is a rails form builder that makes it super easy to integrate twitter bootstrap-style forms into your rails application.
 gem 'bootstrap_form'
+# Pagination gems
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

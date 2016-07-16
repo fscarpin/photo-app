@@ -1,6 +1,7 @@
 <%- model_class = Image -%>
 
-<div class="row col-md-6">
+<%= render "images/errors" %>
+
 <div class="panel panel-info">
   <div class="panel-heading">
     <h3 class="panel-title">Image Upload</h3>
@@ -9,40 +10,22 @@
     <%= render "images/upload_form" %>
   </div>
 </div>
+
+<br>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="text-center"> Your images </h1>
+  </div>
+  <div class="panel-body">
+    <div class="text-center">
+      <%= will_paginate @images_uploaded, renderer: BootstrapPagination::Rails %>
+    </div>
+
+    <%= render "images/list" %>
+
+    <div class="text-center">
+      <%= will_paginate @images_uploaded, renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
 </div>
-
-<%= form_tag destroy_multiples_images_path, method: :delete do %>
-  <table class="table table-striped border-top">
-    <thead>
-      <tr>
-        <th> Picture </th>
-        <th> <%= sortable "file_name", "File name" %> </th>
-        <th> <%= sortable "created_at", "Created at" %> </th>
-        <th class="text-center">Selection</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @images_uploaded.each do |image| %>
-        <tr>
-          <td>
-            <%= link_to image_path(image) do%>
-              <%= image_tag image.picture.versions[:thumb].url %>
-            <% end %>
-          </td>
-          <td><%= link_to image.file_name, image_path(image) %></td>
-          <td><%= image.created_at.strftime("%c") %></td>
-          <td>
-            <div class="text-center">
-              <%= check_box_tag "image_ids[]", image.id %>
-            </div>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= button_tag class: "btn btn-danger" do %>
-    <i class="fa fa-trash-o"></i> Delete selected images
-  <% end %>
-<% end %>
 

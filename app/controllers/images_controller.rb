@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    @images_uploaded = Image.where(user: current_user).order("LOWER(#{sort_column})" + " " + sort_direction)
+    @images_uploaded = Image.where(user: current_user).paginate(:page => params[:page]).order("LOWER(#{sort_column})" + " " + sort_direction)
     @image = Image.new
   end
 
@@ -31,7 +31,7 @@ class ImagesController < ApplicationController
       flash[:notice] = "Uploaded Successfully"
       redirect_to images_path
     else
-      @images_uploaded = Image.where(user: current_user).order("created_at DESC")
+      @images_uploaded = Image.where(user: current_user).paginate(:page => params[:page]).order("created_at DESC")
       @image = Image.new
       render :index
     end
@@ -64,27 +64,27 @@ class ImagesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_image
-      @image = Image.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_image
+    @image = Image.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def image_params
-      params.require(:image).permit(:picture, :user_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def image_params
+    params.require(:image).permit(:picture, :user_id)
+  end
 
-    def validate_payment
-      if user_signed_in? && current_user.payment == false
-        redirect_to new_charge_path
-      end
+  def validate_payment
+    if user_signed_in? && current_user.payment == false
+      redirect_to new_charge_path
     end
+  end
 
-    def sort_column
-      Image.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
-    end
+  def sort_column
+    Image.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
 
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-    end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
 end
