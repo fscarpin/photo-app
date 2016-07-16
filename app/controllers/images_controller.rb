@@ -6,8 +6,7 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    order_by_arg = (sort_column == "file_name") ? "LOWER(#{sort_column})" : sort_column
-    @images_uploaded = Image.where(user: current_user).paginate(:page => params[:page]).order(order_by_arg + " " + sort_direction)
+    @images_uploaded = Image.where(user: current_user).paginate(:page => params[:page]).order(order_by)
     @image = Image.new
   end
 
@@ -32,7 +31,7 @@ class ImagesController < ApplicationController
       flash[:notice] = "Uploaded Successfully"
       redirect_to images_path
     else
-      @images_uploaded = Image.where(user: current_user).paginate(:page => params[:page]).order("created_at DESC")
+      @images_uploaded = Image.where(user: current_user).paginate(:page => params[:page]).order(order_by)
       @image = Image.new
       render :index
     end
@@ -81,11 +80,33 @@ class ImagesController < ApplicationController
     end
   end
 
+  def order_by
+    column = (sort_column == "file_name") ? "LOWER(#{sort_column})" : sort_column
+
+    "#{column} #{sort_direction}"
+  end
+
   def sort_column
-    Image.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    # If the session doesn't have the sort_column information, let's set it to "created_at"
+    session[:sort_column] = "created_at" if session[:sort_column].blank?
+
+    # If the user wants to sort using another column, let's set this preference in the session
+    if Image.column_names.include? (params[:sort])
+      session[:sort_column] = params[:sort]
+    end
+
+    session[:sort_column]
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    # If the session doesn't have the sort_direction info, let's set it to "desc"
+    session[:sort_direction] = "desc" if session[:sort_direction].blank?
+
+    # If the user wants to change the sort dicrection, let's set this in the session
+    if ["asc", "desc"].include?(params[:direction])
+      session[:sort_direction] = params[:direction]
+    end
+
+    session[:sort_direction]
   end
 end
