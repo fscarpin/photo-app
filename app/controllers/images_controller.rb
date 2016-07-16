@@ -6,7 +6,8 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    @images_uploaded = Image.where(user: current_user).paginate(:page => params[:page]).order("LOWER(#{sort_column})" + " " + sort_direction)
+    order_by_arg = (sort_column == "file_name") ? "LOWER(#{sort_column})" : sort_column
+    @images_uploaded = Image.where(user: current_user).paginate(:page => params[:page]).order(order_by_arg + " " + sort_direction)
     @image = Image.new
   end
 
